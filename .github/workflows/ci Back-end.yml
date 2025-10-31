@@ -23,3 +23,24 @@ jobs:
         working-directory: sgcmapi/
         run: mvn compile test
 
+    merge:
+      needs: build
+      runs-on: ubuntu-latest
+      if: github.event_name == 'pull_request'
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v5
+        - name: Filtro de arquivos
+          id: filtro
+          uses: dorny/paths-filter@v3
+          with:
+            filters: |
+              java:
+                - '**/*.java'
+        - name: Merge
+          if: ${{ contains(steps.filtro.outputs.java, 'true') }}
+          uses: devmasx/merge-branch@v1.4.0
+          with:
+            type: now
+            target-branch: main
+            github-token: ${{ github.token }}
