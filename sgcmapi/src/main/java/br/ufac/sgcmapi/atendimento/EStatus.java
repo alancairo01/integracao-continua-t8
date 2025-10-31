@@ -13,7 +13,7 @@ public enum EStatus {
         EStatus status = this;
         int index = ordinal() + 1;
         if (index > 1 && index < values().length) {
-            status = values()[index];
+            status = [index];
         }
         return status;
     }
