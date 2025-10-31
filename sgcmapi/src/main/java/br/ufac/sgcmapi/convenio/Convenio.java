@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Convenio implements Serializable {
+    3
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
